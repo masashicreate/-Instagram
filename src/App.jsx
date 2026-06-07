@@ -1,64 +1,64 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const questions = [
   {
     id: 1,
-    text: "友達との集まりで、あなたはどんな役割？",
+    text: "友達の誕生日サプライズを企画するなら？",
     options: [
-      { label: "みんなを笑顔にする盛り上げ役", value: { A: 2, B: 1 } },
-      { label: "細かいスケジュールを管理する幹事", value: { C: 2, D: 1 } },
-      { label: "裏で準備を黙々と進めるサポーター", value: { E: 2, F: 1 } },
-      { label: "当日まで何も決めないフリースタイル", value: { G: 2, H: 1 } },
+      { label: "サプライズ演出を考えてとことんこだわる", value: { H: 2, B: 1 } },
+      { label: "みんなが居心地よくなるよう気を配る", value: { B: 2, A: 1 } },
+      { label: "参加者の日程調整と連絡を担当する", value: { C: 2, D: 1 } },
+      { label: "当日は盛り上げ役に徹する", value: { A: 2, H: 1 } },
     ],
   },
   {
     id: 2,
-    text: "ストレスを感じたとき、どうやって解消する？",
+    text: "カフェでバイトするなら、どの仕事が好き？",
     options: [
-      { label: "美味しいものを食べて気分転換", value: { B: 2, A: 1 } },
-      { label: "体を動かして汗を流す", value: { H: 2, G: 1 } },
-      { label: "ひとりで静かに考える時間をつくる", value: { E: 2, C: 1 } },
-      { label: "誰かと話して発散する", value: { A: 2, D: 1 } },
+      { label: "お客さんに話しかけておすすめを紹介する", value: { B: 2, A: 1 } },
+      { label: "レジや在庫管理などお店を回す仕事", value: { C: 2, E: 1 } },
+      { label: "SNSや告知ポスターをつくる仕事", value: { D: 2, H: 1 } },
+      { label: "清掃や設備チェックでお店を整える仕事", value: { F: 2, G: 1 } },
     ],
   },
   {
     id: 3,
-    text: "初めて行く場所で迷子になったら？",
+    text: "憧れる仕事のシーンはどれ？",
     options: [
-      { label: "すぐ地元の人に話しかけて聞く", value: { A: 2, D: 1 } },
-      { label: "スマホで地図を調べて自力で解決", value: { C: 2, E: 1 } },
-      { label: "とりあえず歩きながら探検する", value: { G: 2, H: 1 } },
-      { label: "焦らず落ち着いて状況を整理する", value: { F: 2, C: 1 } },
+      { label: "結婚式で新郎新婦の笑顔を見る瞬間", value: { H: 2, A: 1 } },
+      { label: "おすすめしたドリンクを「おいしい！」と喜ばれる瞬間", value: { B: 2, H: 1 } },
+      { label: "数字で成果が出て目標達成する瞬間", value: { D: 2, C: 1 } },
+      { label: "問題を解決して「ありがとう」と言われる瞬間", value: { A: 2, F: 1 } },
     ],
   },
   {
     id: 4,
-    text: "理想の仕事環境はどれに近い？",
+    text: "グループ作業でどんな役割になりがち？",
     options: [
-      { label: "チームワークで達成感を共有したい", value: { A: 2, B: 1 } },
-      { label: "数字や成果がはっきり見えるとやる気が出る", value: { D: 2, C: 1 } },
-      { label: "技術やスキルを極めていきたい", value: { E: 2, F: 1 } },
-      { label: "アイデアを形にできる自由な環境", value: { D: 2, G: 1 } },
+      { label: "アイデアをどんどん出す発案者", value: { H: 2, D: 1 } },
+      { label: "全体の進行を管理するまとめ役", value: { C: 2, A: 1 } },
+      { label: "細かい作業を丁寧にこなす実務担当", value: { E: 2, F: 1 } },
+      { label: "場の空気を読んで全員をフォローする役", value: { B: 2, A: 1 } },
     ],
   },
   {
     id: 5,
-    text: "SNSを使うとしたら、どんな投稿をする？",
+    text: "友達と食事に行ったとき、どんな行動をとりがち？",
     options: [
-      { label: "旅行や食事の写真をこだわって投稿", value: { D: 2, B: 1 } },
-      { label: "趣味や日常のリアルな様子", value: { G: 2, A: 1 } },
-      { label: "役立つ情報や知識をシェア", value: { C: 2, E: 1 } },
-      { label: "あまり発信はしない・見るだけ", value: { F: 2, E: 1 } },
+      { label: "メニューを読み込んでみんなにおすすめする", value: { B: 2, E: 1 } },
+      { label: "食事よりみんなとの会話が目当て", value: { H: 2, A: 1 } },
+      { label: "カロリーや栄養が気になってしまう", value: { G: 2, C: 1 } },
+      { label: "誰かが決めてくれるのを待つ", value: { F: 2, D: 1 } },
     ],
   },
   {
     id: 6,
-    text: "「困っている人がいる」と気づいたとき？",
+    text: "理想の「ありがとう」の形は？",
     options: [
-      { label: "すぐに声をかけて助ける", value: { A: 2, B: 1 } },
-      { label: "どうすれば解決できるか考えてから動く", value: { C: 2, F: 1 } },
-      { label: "さりげなくフォローする", value: { E: 2, F: 1 } },
-      { label: "担当者に伝えて任せる", value: { C: 2, D: 1 } },
+      { label: "「最高の思い出になった」と言われたい", value: { H: 2, B: 1 } },
+      { label: "「あなたのおかげで楽しめた」と言われたい", value: { B: 2, A: 1 } },
+      { label: "「あなたがいて安心した」と言われたい", value: { A: 2, F: 1 } },
+      { label: "「よく気がつくね」と言われたい", value: { C: 2, E: 1 } },
     ],
   },
 ];
@@ -75,14 +75,14 @@ const results = {
     keyword: ["人懐っこい", "瞬発力がある", "笑顔が武器"],
   },
   B: {
-    title: "レストラン・料飲スタッフ",
+    title: "レストラン・バースタッフ",
     dept: "料飲部門",
-    emoji: "🍽️",
+    emoji: "🍷",
     color: "#F59E0B",
     bg: "linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)",
     accent: "#D97706",
-    desc: "食の喜びを人と分かち合いたい、感性豊かなあなた。美味しいものへのアンテナが高く、場の雰囲気づくりが得意です。料理・飲み物の知識を深めながら、食を通じてゲストの特別な瞬間を演出できる仕事が合っています。",
-    keyword: ["センスがいい", "雰囲気をつくれる", "食へのこだわり"],
+    desc: "場の空気を読みながら、さりげなくゲストに寄り添えるあなた。おすすめのドリンクや料理を提案して「それにします！」と言われたとき、最高の達成感を感じるタイプです。会話しながらゲストの好みを引き出す接客センスが、料飲サービスの現場で輝きます。",
+    keyword: ["気配り上手", "会話が得意", "センスがいい"],
   },
   C: {
     title: "管理・バックオフィス",
@@ -165,7 +165,7 @@ export default function HotelDiagnosis() {
   const [animating, setAnimating] = useState(false);
   const [reveal, setReveal] = useState(false);
 
-  const progress = ((current) / questions.length) * 100;
+  const progress = (current / questions.length) * 100;
 
   function handleAnswer(value) {
     if (animating) return;
@@ -300,7 +300,7 @@ export default function HotelDiagnosis() {
                   Question {current + 1} / {questions.length}
                 </span>
                 <span style={{ fontSize: 12, color: "#EC4899", fontWeight: 700 }}>
-                  {Math.round(((current) / questions.length) * 100)}%
+                  {Math.round((current / questions.length) * 100)}%
                 </span>
               </div>
               <div style={{
